@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ExpenseService {
 
-    void addExpense(Expense expense);
+    void addExpense(Expense expense , int userId);
 
     List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate);
 }

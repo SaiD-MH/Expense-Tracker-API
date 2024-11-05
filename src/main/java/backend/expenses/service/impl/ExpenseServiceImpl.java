@@ -2,7 +2,9 @@ package backend.expenses.service.impl;
 
 import backend.expenses.entity.Expense;
 import backend.expenses.repository.ExpenseRepository;
+import backend.expenses.repository.UserRepository;
 import backend.expenses.service.ExpenseService;
+import backend.expenses.service.validation.DbCheck;
 import backend.expenses.service.validation.TimeRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,21 +21,29 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
     private final ExpenseRepository expenseRepository;
+    private final DbCheck databaseChecker;
 
     @Autowired
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository) {
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, DbCheck databaseChecker) {
         this.expenseRepository = expenseRepository;
+        this.databaseChecker = databaseChecker;
     }
 
     @Override
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense, int userId) {
+
+        if (!databaseChecker.isUserExist(userId))
+            throw new RuntimeException("User not exist");
 
         expenseRepository.save(expense);
-
     }
 
     @Override
     public List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate) {
+
+        if (!databaseChecker.isUserExist(userId))
+            throw new RuntimeException("User Not Found");
+
 
         List<Expense> resultSet = new ArrayList<>();
 
@@ -58,7 +68,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
             List<LocalDate> dateRange = TimeRange.validateCustomRange(starDate, endDate);
 
-            if (dateRange == null)
+            if (dateRange.isEmpty())
                 throw new RuntimeException("Invalid date range");
 
             resultSet = expenseRepository.findByCustomDate(userId, dateRange.get(0), dateRange.get(1));

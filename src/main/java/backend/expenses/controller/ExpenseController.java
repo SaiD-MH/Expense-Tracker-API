@@ -23,10 +23,10 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<String> addExpense(@RequestBody Expense expense) {
+    @PostMapping("/{userId}")
+    public ResponseEntity<String> addExpense(@RequestBody Expense expense , @PathVariable int userId) {
 
-        expenseService.addExpense(expense);
+        expenseService.addExpense(expense , userId);
 
         return new ResponseEntity<>("Expense add successfully", HttpStatus.CREATED);
 
