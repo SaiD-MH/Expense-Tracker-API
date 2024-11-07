@@ -81,7 +81,7 @@ public class ReportGeneratorServiceImpl implements ReportGeneratorService {
         }
 
         csvWriter.close();
-        
+
         return stringWriter.toString().getBytes(StandardCharsets.UTF_8);
 
     }

@@ -20,7 +20,7 @@ public class ExpenseReportController {
         this.reportGeneratorService = reportGeneratorService;
     }
 
-    @GetMapping("/api/{userId}/report")
+    @GetMapping("/api/report/{userId}")
     public ResponseEntity<byte[]> generateExpenseReport(@PathVariable int userId) throws IOException {
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"expense_report.csv\"")
