@@ -1,7 +1,9 @@
 package backend.expenses.entity;
 
+import backend.expenses.enums.Category;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -9,6 +11,8 @@ import java.util.Date;
 public class Expense {
 
 
+    @Id
+    private int id;
     private int userId;
     private double amount;
     private Date createdAt;
@@ -20,12 +24,21 @@ public class Expense {
     }
 
 
-    public Expense(int userId, double amount, Date createdAt, String description, String category) {
+    public Expense(int id, int userId, double amount, Date createdAt, String description, String category) {
+        this.id = id;
         this.userId = userId;
         this.amount = amount;
         this.createdAt = createdAt;
         this.description = description;
         this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUserId() {
@@ -67,4 +80,32 @@ public class Expense {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", amount=" + amount +
+                ", createdAt=" + createdAt +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
+
+
+    public String enumSettingCategory(String inputCategory) {
+
+        try {
+
+            Category category = Category.valueOf(inputCategory.toUpperCase());
+            return category.toString();
+
+        } catch (Exception exception) {
+            throw new RuntimeException("Invalid Category type");
+        }
+
+
+    }
+
 }

@@ -1,4 +1,4 @@
-package backend.expenses.service.validation;
+package backend.expenses.validation;
 
 import java.util.Optional;
 

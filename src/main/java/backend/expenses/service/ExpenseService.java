@@ -11,4 +11,8 @@ public interface ExpenseService {
     void addExpense(Expense expense , int userId);
 
     List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate);
+
+    Expense updateExpense(Expense expense , int expenseId , int userId);
+
+    void deleteExpense(int userId , int expenseId);
 }

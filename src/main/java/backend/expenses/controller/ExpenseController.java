@@ -24,9 +24,9 @@ public class ExpenseController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<String> addExpense(@RequestBody Expense expense , @PathVariable int userId) {
+    public ResponseEntity<String> addExpense(@RequestBody Expense expense, @PathVariable int userId) {
 
-        expenseService.addExpense(expense , userId);
+        expenseService.addExpense(expense, userId);
 
         return new ResponseEntity<>("Expense add successfully", HttpStatus.CREATED);
 
@@ -45,10 +45,18 @@ public class ExpenseController {
     }
 
     @PutMapping("/{userId}/{expenseId}")
-    public String updateExpense(@PathVariable("userId") int userId, @PathVariable("expenseId") int expenseId) {
+    public ResponseEntity<Expense> updateExpense(@RequestBody Expense expense, @PathVariable("userId") int userId, @PathVariable("expenseId") int expenseId) {
 
-        System.out.println("uId : " + userId + " expId : " + expenseId);
-        return "Sui";
+        return new ResponseEntity<>(expenseService.updateExpense(expense, expenseId, userId), HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("{userId}/{expenseId}")
+    public ResponseEntity<String> deleteExpense(@PathVariable("userId") int userId, @PathVariable("expenseId") int expenseId) {
+
+        expenseService.deleteExpense(userId, expenseId);
+
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
     }
 
 

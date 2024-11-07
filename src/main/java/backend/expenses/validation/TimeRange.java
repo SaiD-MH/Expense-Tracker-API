@@ -1,4 +1,4 @@
-package backend.expenses.service.validation;
+package backend.expenses.validation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
