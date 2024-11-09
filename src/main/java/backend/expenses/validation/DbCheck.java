@@ -31,7 +31,7 @@ public class DbCheck {
 
 
     public boolean validUser(int userId, int internalUserId) {
-
+        System.out.println("User: " + userId);
         return isUserExist(userId) && sameUser(userId, internalUserId);
 
     }

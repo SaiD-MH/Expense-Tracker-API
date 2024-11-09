@@ -10,7 +10,7 @@ public interface ExpenseService {
 
     void addExpense(Expense expense , int userId);
 
-    List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate);
+    List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate , Optional<String> categoy);
 
     Expense updateExpense(Expense expense , int expenseId , int userId);
 

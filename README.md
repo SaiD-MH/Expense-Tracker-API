@@ -18,8 +18,8 @@ A simple and efficient **Expense Tracker API** that allows users to manage and t
 - **Filtering:** Filter expenses by date ranges (last X days, last X months, or custom date range).
 - **Generate Reports:** Generate CSV reports for expenses without any filters.
 - **MongoDB Storage:** All expenses are stored in a MongoDB database.
-- **Auto-increment Supporting**: Supported auto-increment feature to mongodb insertion using collection counter strategy
-
+- **Auto-increment Supporting:** Supported auto-increment feature to mongodb insertion using collection counter strategy
+- **Database Optimization:** Populate the database with +5M documents of expenses and +100K user and applied two compound indexes over the expense collection 
 ## Tech Stack
 
 - **Backend Framework:** Spring Boot
@@ -91,6 +91,7 @@ Here are the available endpoints for the Expense Tracker API:
   - **days (optional):** number of days for filtering.
   - **months (optional):** number of months for filtering.
   - **startDate, endDate (optional):** for custom date range.
+  - **category:** for filtering by category [ Food , Health ...etc]
 - **Example Request:**
 
   ```bash

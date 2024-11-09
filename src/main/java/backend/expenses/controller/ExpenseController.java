@@ -38,9 +38,10 @@ public class ExpenseController {
                                                         @RequestParam(value = "days", required = false) Optional<Integer> days,
                                                         @RequestParam(value = "months", required = false) Optional<Integer> months,
                                                         @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String startDate,
-                                                        @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String endDate) {
+                                                        @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String endDate,
+                                                        @RequestParam(value = "category", required = false) Optional<String> category) {
 
-        return new ResponseEntity<>(expenseService.getAllExpenses(userId, filterBy, days, months, startDate, endDate), HttpStatus.OK);
+        return new ResponseEntity<>(expenseService.getAllExpenses(userId, filterBy, days, months, startDate, endDate , category), HttpStatus.OK);
 
     }
 

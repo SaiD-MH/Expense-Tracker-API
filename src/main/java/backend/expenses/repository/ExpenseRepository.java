@@ -23,4 +23,7 @@ public interface ExpenseRepository extends MongoRepository<Expense, Integer> {
 
     void deleteByIdAndUserId(int expenseId, int userId);
 
+
+    List<Expense> findByUserIdAndCategory(int useId , String category);
+
 }

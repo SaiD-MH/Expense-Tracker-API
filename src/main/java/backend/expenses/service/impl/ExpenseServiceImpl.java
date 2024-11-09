@@ -48,13 +48,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate) {
+    public List<Expense> getAllExpenses(int userId, String filterBy, Optional<Integer> days, Optional<Integer> months, String starDate, String endDate, Optional<String> category) {
 
         if (!databaseChecker.isUserExist(userId))
             throw new RuntimeException("User Not Found");
 
 
         List<Expense> resultSet = new ArrayList<>();
+
 
         if (filterBy.equalsIgnoreCase("days")) {
 
@@ -73,6 +74,18 @@ public class ExpenseServiceImpl implements ExpenseService {
             List<LocalDate> dateRange = TimeRange.calculateMonthRanges(months.get());
             resultSet = expenseRepository.findByCustomDate(userId, dateRange.get(0), dateRange.get(1));
 
+        } else if (filterBy.equalsIgnoreCase("category")) {
+
+            if (category.isEmpty())
+                throw new RuntimeException("Category Can't be empty");
+
+
+            Category enumCategory = Category.valueOf(category.get().toUpperCase());
+
+
+            resultSet = expenseRepository.findByUserIdAndCategory(userId, enumCategory.toString());
+
+
         } else if (filterBy.equalsIgnoreCase("custom")) {
 
             List<LocalDate> dateRange = TimeRange.validateCustomRange(starDate, endDate);
@@ -85,6 +98,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         } else
             throw new RuntimeException("Invalid Filter Type");
 
+        System.out.println("Size: " + resultSet.size());
         return resultSet;
     }
 
